@@ -34,7 +34,7 @@ begin
     end
   end
 
-  Kernel.exec(cmd)
+  Kernel.system(cmd)
 rescue Errno::EACCES
   puts "warbler-exec: not executable: #{ARGV.first}"
   exit 126
@@ -44,6 +44,8 @@ rescue Errno::ENOENT
 rescue ArgumentError
   puts "warbler-exec: exec needs a command to run"
   exit 128
+ensure
+  FileUtils.remove_entry_secure destination
 end 
 
 
